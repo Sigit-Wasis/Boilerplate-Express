@@ -6,6 +6,7 @@ import {
     putUser,
     deleteUserById
 } from '../controllers/user.controller';
+import { authenticate } from '../middlewares/auth.middleware';
 
 const router = Router();
 
@@ -22,7 +23,7 @@ const router = Router();
  *       200:
  *         description: List of users
  */
-router.get('/', getUsers);
+router.get('/', authenticate, getUsers);
 
 /**
  * @swagger
@@ -45,7 +46,7 @@ router.get('/', getUsers);
  *       404:
  *         description: User not found
  */
-router.get('/:id', getUser);
+router.get('/:id', authenticate, getUser);
 
 /**
  * @swagger
@@ -74,7 +75,7 @@ router.get('/:id', getUser);
  *       201:
  *         description: User created
  */
-router.post('/', postUser);
+router.post('/', authenticate, postUser);
 
 /**
  * @swagger
@@ -106,7 +107,7 @@ router.post('/', postUser);
  *       200:
  *         description: User updated
  */
-router.put('/:id', putUser);
+router.put('/:id', authenticate, putUser);
 
 /**
  * @swagger
@@ -127,6 +128,6 @@ router.put('/:id', putUser);
  *       204:
  *         description: User deleted
  */
-router.delete('/:id', deleteUserById);
+router.delete('/:id', authenticate, deleteUserById);
 
 export default router;
